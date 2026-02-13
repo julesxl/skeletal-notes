@@ -24,6 +24,12 @@
     .toolbar{
       display:flex; gap:10px; flex-wrap:wrap;
       margin:14px 0 18px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: var(--bg);
+      padding: 10px 0;
+      border-bottom: 1px solid var(--line);
     }
     button{
       background:var(--card); color:var(--ink);
@@ -32,6 +38,7 @@
       cursor:pointer;
     }
     button:hover{ border-color:var(--accent); }
+    .active-mode{ font-weight:700; border-color:var(--accent); }
     .wrap{
       max-width: 980px;
       margin: 0 auto;
@@ -83,6 +90,38 @@
       margin-left:8px;
     }
 
+    /* ========================= */
+    /* Pathology flashcards UI   */
+    /* ========================= */
+    .fc-term{
+      appearance:none;
+      outline:none;
+
+      font: inherit;
+      font-weight: 700;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: var(--ink);
+      cursor: pointer;
+      text-align: left;
+    
+      box-shadow:none;
+      border-radius:0;
+    }
+    .fc-term:hover{ text-decoration: underline; text-underline-offset: 3px; }
+    .fc-term:focus{ outline:none; }
+    .fc-term:focus-visible{ outline:none; box-shadow:none; border-radius:0; }
+    .fc-def{ display:inline; }
+    /* When hidden, keep layout stable but remove content */
+    .fc-hidden .fc-def{ display:none; }
+    .fc-card{ position: relative; }
+        /* In study mode, default hides definitions unless user reveals */
+    .study-mode .fc-card:not(.fc-revealed){
+      /* leave term visible; hide definition */
+    }
+    .study-mode .fc-card:not(.fc-revealed) .fc-def{ display:none; }
+    
     @media print{
       body{ background:#fff; color:#000; padding:0; }
       section, details{ background:#fff; border-color:#ccc; }
@@ -100,7 +139,7 @@
   <div class="toolbar">
     <button type="button" onclick="toggleAll(true)">Expand all</button>
     <button type="button" onclick="toggleAll(false)">Collapse all</button>
-    <button type="button" onclick="printAll()">Print (opens all)</button>
+    <button type="button" id="studyToggle">Path: Study mode</button>
   </div>
 
   <!-- ========================= -->
@@ -303,6 +342,7 @@
   <!-- ========================= -->
   <section>
     <h2>Bone pathology (Definitions with micro → macro logic)</h2>
+    <p class="note" id="pathNote">Tip: click the condition name to hide/reveal the definition (quick recall drills).</p>
     
     <details>
       <summary>A) Remodeling / density problems (chronic “renovation imbalance”)</summary>
@@ -386,15 +426,115 @@
   function toggleAll(open) {
     document.querySelectorAll('details').forEach(d => d.open = open);
   }
-  function printAll(){
-    toggleAll(true);
-    // give the DOM a beat to expand before printing
-    setTimeout(() => window.print(), 50);
-  }
+  // =========================
+  // Pathology flashcards
+  // =========================
+  (function initPathFlashcards(){
+    // Find the section whose h2 contains "Bone pathology"
+    const pathSection = [...document.querySelectorAll('section')].find(
+      s => (s.querySelector('h2')?.textContent || '').toLowerCase().includes('bone pathology')
+    );
+    if(!pathSection) return;
+
+    const STORAGE_KEY = 'bonePathStudyMode';
+    let studyMode = localStorage.getItem(STORAGE_KEY) === '1';
+
+    const studyToggle = document.getElementById('studyToggle');
+
+    // Helper: apply mode + update UI + reset cards
+    function applyStudyMode(on){
+      studyMode = !!on;
+      localStorage.setItem(STORAGE_KEY, studyMode ? '1' : '0');
+
+      // Button state (bold when on)
+      if(studyToggle){
+        studyToggle.classList.toggle('active-mode', studyMode);
+        studyToggle.textContent = 'Path: Study mode';
+      }
+
+      // Reset every flashcard based on mode
+      pathSection.querySelectorAll('li.fc-card').forEach(li => {
+        if(studyMode){
+          li.classList.add('fc-hidden');
+          li.classList.remove('fc-revealed');
+          const btn = li.querySelector('button.fc-term');
+          if(btn) btn.setAttribute('aria-expanded','false');
+        } else {
+          li.classList.remove('fc-hidden');
+          li.classList.add('fc-revealed');
+          const btn = li.querySelector('button.fc-term');
+          if(btn) btn.setAttribute('aria-expanded','true');
+        }
+      });
+    }
+
+    // Convert pathology list items into term + definition spans (only once)
+    const lis = pathSection.querySelectorAll('li');
+    lis.forEach(li => {
+      const b = li.querySelector('b');
+      if(!b) return;
+
+      // Only convert if it looks like "<b>Term</b>: ..."
+      const afterBold = (b.nextSibling && b.nextSibling.nodeType === Node.TEXT_NODE)
+        ? b.nextSibling.textContent
+        : '';
+      if(!afterBold.trim().startsWith(':')) return;
+
+      li.classList.add('fc-card');
+
+      const termText = b.textContent.trim();
+      const termBtn = document.createElement('button');
+      termBtn.type = 'button';
+      termBtn.className = 'fc-term';
+      termBtn.textContent = termText;
+
+      // Replace <b>Term</b> with button
+      b.replaceWith(termBtn);
+
+      // Wrap the definition (everything after the button) in a span
+      const defSpan = document.createElement('span');
+      defSpan.className = 'fc-def';
+
+      const nodesToMove = [];
+      let n = termBtn.nextSibling;
+      while(n){
+        nodesToMove.push(n);
+        n = n.nextSibling;
+      }
+      nodesToMove.forEach(node => defSpan.appendChild(node));
+      li.appendChild(defSpan);
+
+      function setHidden(hidden){
+        if(hidden){
+          li.classList.add('fc-hidden');
+          li.classList.remove('fc-revealed');
+          termBtn.setAttribute('aria-expanded','false');
+        } else {
+          li.classList.remove('fc-hidden');
+          li.classList.add('fc-revealed');
+          termBtn.setAttribute('aria-expanded','true');
+        }
+      }
+
+      // Initialize state
+      setHidden(studyMode);
+
+      // Click toggles definition
+      termBtn.addEventListener('click', () => {
+        const currentlyHidden = li.classList.contains('fc-hidden');
+        setHidden(!currentlyHidden);
+      });
+    });
+
+    // Wire toggle button
+    if(studyToggle){
+      studyToggle.addEventListener('click', () => applyStudyMode(!studyMode));
+    }
+
+    // Initialize
+    applyStudyMode(studyMode);
+  })();
 </script>
+
 </body>
 </html>
-
-
-
-
