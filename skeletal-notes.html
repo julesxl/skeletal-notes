@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Skeletal System – Bone Types + Pathology (RN Cohort)</title>
+  <style>
+   :root{
+  --bg:#ffffff;
+  --card:#ffffff;
+  --ink:#000000;
+  --muted:#000000;
+  --line:#cccccc;
+  --accent:#000000;
+}
+    body{
+      margin:0; padding:24px;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:var(--bg); color:var(--ink);
+      line-height:1.35;
+    }
+    h1{ margin:0 0 6px 0; font-size:22px; }
+    .sub{ margin:0 0 18px 0; color:var(--muted); }
+    .toolbar{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin:14px 0 18px 0;
+    }
+    button{
+      background:var(--card); color:var(--ink);
+      border:1px solid var(--line);
+      padding:8px 12px; border-radius:10px;
+      cursor:pointer;
+    }
+    button:hover{ border-color:var(--accent); }
+    .wrap{
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    section{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:16px;
+      margin:14px 0;
+    }
+    h2{
+      margin:0 0 10px 0;
+      font-size:18px;
+    }
+    details{
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:10px 12px;
+      margin:10px 0;
+      background:rgba(255,255,255,0.02);
+    }
+    details details{ background:rgba(255,255,255,0.015); }
+    summary{
+      cursor:pointer;
+      font-weight:650;
+      list-style:none;
+      outline:none;
+    }
+    summary::-webkit-details-marker{ display:none; }
+    summary::before{
+      content:"▸";
+      display:inline-block;
+      margin-right:10px;
+      color:var(--accent);
+      transform: translateY(-1px);
+    }
+    details[open] > summary::before{ content:"▾"; }
+    ul{ margin:8px 0 0 22px; }
+    li{ margin:4px 0; }
+    .note{ color:var(--muted); margin:8px 0 0 0; }
+    .tag{
+      display:inline-block;
+      font-size:12px;
+      padding:2px 8px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      color:var(--muted);
+      margin-left:8px;
+    }
+
+    @media print{
+      body{ background:#fff; color:#000; padding:0; }
+      section, details{ background:#fff; border-color:#ccc; }
+      button, .toolbar{ display:none !important; }
+      summary::before{ color:#000; }
+      .note{ color:#333; }
+    }
+  </style>
+</head>
+
+<body>
+<div class="wrap">
+  <h1>Skeletal System – Adult Bone Types + Bone Pathology</h1>
+ 
+  <div class="toolbar">
+    <button type="button" onclick="toggleAll(true)">Expand all</button>
+    <button type="button" onclick="toggleAll(false)">Collapse all</button>
+    <button type="button" onclick="printAll()">Print (opens all)</button>
+  </div>
+
+  <!-- ========================= -->
+  <!-- 1) ADULT SKELETON BY TYPE -->
+  <!-- ========================= -->
+  <section>
+    <h2>Adult skeleton reorganized by bone type (the “206-by-shape” map)</h2>
+
+    <details>
+      <summary>1) Long bones (90 total)</summary>
+
+      <details>
+        <summary>Upper limb + girdle</summary>
+        <ul>
+          <li>Clavicle (2)</li>
+          <li>Humerus (2)</li>
+          <li>Radius (2)</li>
+          <li>Ulna (2)</li>
+          <li>Metacarpals I–V (10 total)</li>
+          <li>Hand phalanges (28 total)
+            <ul>
+              <li>Proximal (10)</li>
+              <li>Middle (8)</li>
+              <li>Distal (10)</li>
+            </ul>
+          </li>
+        </ul>
+      </details>
+
+      <details>
+        <summary>Lower limb</summary>
+        <ul>
+          <li>Femur (2)</li>
+          <li>Tibia (2)</li>
+          <li>Fibula (2)</li>
+          <li>Metatarsals I–V (10 total)</li>
+          <li>Foot phalanges (28 total)
+            <ul>
+              <li>Proximal (10)</li>
+              <li>Middle (8)</li>
+              <li>Distal (10)</li>
+            </ul>
+          </li>
+        </ul>
+      </details>
+
+      <p class="note">Teaching hook: long bones = leverage + locomotion + big marrow spaces.</p>
+    </details>
+
+    <details>
+      <summary>2) Short bones (28 total)</summary>
+
+      <details>
+        <summary>Carpals (14 total, excluding pisiform—see sesamoid)</summary>
+        <ul>
+          <li>Scaphoid (2)</li>
+          <li>Lunate (2)</li>
+          <li>Triquetrum (2)</li>
+          <li>Trapezium (2)</li>
+          <li>Trapezoid (2)</li>
+          <li>Capitate (2)</li>
+          <li>Hamate (2)</li>
+        </ul>
+      </details>
+
+      <details>
+        <summary>Tarsals (14 total)</summary>
+        <ul>
+          <li>Calcaneus (2)</li>
+          <li>Talus (2)</li>
+          <li>Navicular (2)</li>
+          <li>Cuboid (2)</li>
+          <li>Medial cuneiform (2)</li>
+          <li>Intermediate cuneiform (2)</li>
+          <li>Lateral cuneiform (2)</li>
+        </ul>
+      </details>
+
+      <p class="note">Teaching hook: short bones = stability + shock distribution + controlled glide.</p>
+    </details>
+
+    <details>
+      <summary>3) Flat bones (38 total)</summary>
+
+      <details>
+        <summary>Thorax</summary>
+        <ul>
+          <li>Ribs (24) (12 pairs)</li>
+          <li>Sternum (1)</li>
+        </ul>
+      </details>
+
+      <details>
+        <summary>Shoulder</summary>
+        <ul>
+          <li>Scapulae (2)</li>
+        </ul>
+      </details>
+
+      <details>
+        <summary>Skull (plate-like protection bones)</summary>
+        <ul>
+          <li>Frontal (1)</li>
+          <li>Parietal (2)</li>
+          <li>Occipital (1)</li>
+          <li>Temporal (2)</li>
+          <li>Nasal (2)</li>
+          <li>Lacrimal (2)</li>
+          <li>Vomer (1)</li>
+        </ul>
+      </details>
+
+      <p class="note">Teaching hook: flat bones = protection + broad muscle attachment + marrow “real estate.”</p>
+    </details>
+
+    <details>
+      <summary>4) Irregular bones (46 total)</summary>
+
+      <details>
+        <summary>Vertebral column</summary>
+        <ul>
+          <li>C1–C7 (7)</li>
+          <li>T1–T12 (12)</li>
+          <li>L1–L5 (5)</li>
+          <li>Sacrum (1)</li>
+          <li>Coccyx (1)</li>
+        </ul>
+      </details>
+
+      <details>
+        <summary>Pelvis</summary>
+        <ul>
+          <li>Hip bones / os coxae (2) <span class="tag">fused compound bones</span></li>
+        </ul>
+      </details>
+
+      <details>
+        <summary>Skull (complex base + face shapes)</summary>
+        <ul>
+          <li>Sphenoid (1)</li>
+          <li>Ethmoid (1)</li>
+          <li>Maxillae (2)</li>
+          <li>Mandible (1)</li>
+          <li>Zygomatic (2)</li>
+          <li>Palatine (2)</li>
+          <li>Inferior nasal conchae (2)</li>
+        </ul>
+      </details>
+
+      <details>
+        <summary>Other</summary>
+        <ul>
+          <li>Hyoid (1)</li>
+        </ul>
+      </details>
+
+      <details>
+        <summary>Auditory ossicles (middle ear)</summary>
+        <ul>
+          <li>Malleus (2)</li>
+          <li>Incus (2)</li>
+          <li>Stapes (2)</li>
+        </ul>
+      </details>
+
+      <p class="note">Teaching hook: irregular bones = “custom parts” (spine, skull base, face, pelvis).</p>
+    </details>
+
+    <details>
+      <summary>5) Sesamoid bones</summary>
+      <details>
+        <summary>Standard sesamoids included in the classic 206 count (4 total)</summary>
+        <ul>
+          <li>Patellae (2)</li>
+          <li>Pisiform (2) <span class="tag">embedded in tendon</span></li>
+        </ul>
+      </details>
+
+      <details>
+        <summary>Common accessory sesamoids (often present; not always counted)</summary>
+        <ul>
+          <li>Hallux sesamoids (typically 2 under the 1st metatarsal head)</li>
+          <li>Thumb sesamoids (often near the MCP region)</li>
+        </ul>
+      </details>
+
+      <p class="note">Teaching hook: sesamoids = tendon “pulley stones” → improve leverage, reduce friction.</p>
+    </details>
+
+    <details>
+      <summary>6) Sutural (wormian) bones <span class="tag">variable/accessory</span></summary>
+      <ul>
+        <li>Small extra bones that can occur within cranial sutures (number/location vary)</li>
+      </ul>
+    </details>
+  </section>
+
+  <!-- ========================= -->
+  <!-- 2) BONE PATHOLOGY -->
+  <!-- ========================= -->
+  <section>
+    <h2>Bone pathology (RN-style definitions with micro → macro logic)</h2>
+    
+    <details>
+      <summary>A) Remodeling / density problems (chronic “renovation imbalance”)</summary>
+      <ul>
+        <li><b>Osteopenia</b>: Lower-than-normal bone mineral density (BMD) that isn’t severe enough to be osteoporosis; reflects <b>net remodeling deficit</b> (resorption &gt; formation) and increases fracture risk over time.</li>
+        <li><b>Osteoporosis</b>: Decreased bone mass + weaker micro-architecture (thin trabeculae, porous cortex) from <b>chronic resorption outpacing formation</b>, leading to fragility fractures (hip, vertebrae, wrist are common).</li>
+        <li><b>Paget disease of bone (osteitis deformans)</b>: Disordered high-turnover remodeling—bone is broken down and rebuilt too fast, producing structurally abnormal, enlarged, weaker bone (pain, deformity, fracture risk).</li>
+      </ul>
+    </details>
+
+    <details>
+      <summary>B) Mineralization problems (the “soft bone” family)</summary>
+      <ul>
+        <li><b>Osteomalacia (adults)</b>: Poor mineralization of osteoid → bones become softer, causing bone pain and increased fracture risk (often linked to vitamin D/calcium/phosphate problems).</li>
+        <li><b>Rickets (children)</b>: Pediatric osteomalacia affecting growing bones/growth plates, leading to impaired endochondral mineralization and skeletal deformities.</li>
+      </ul>
+    </details>
+
+    <details>
+      <summary>C) Blood supply failure (acute or chronic “no fuel, no bone”)</summary>
+      <ul>
+        <li><b>Osteonecrosis / Avascular necrosis (AVN)</b>: Bone tissue death from reduced blood flow → structural collapse risk (commonly femoral head). Micro: osteocytes die; macro: subchondral bone weakens and can collapse.</li>
+        <li><b>Bone infarct</b>: Ischemic necrosis within bone (same concept; location emphasis).</li>
+      </ul>
+    </details>
+
+    <details>
+      <summary>D) Infection/inflammation (bone as a battleground)</summary>
+      <ul>
+        <li><b>Osteomyelitis</b>: Infection of bone causing inflammatory destruction—swelling/pressure can reduce blood flow, and inflammatory signaling ramps osteoclast activity → bone breakdown; possible abscess/sequestrum (clinically: pain; fever may/may not be present; inflammatory markers often elevated).</li>
+      </ul>
+    </details>
+
+    <details>
+      <summary>E) Mechanical failure (acute injury patterns)</summary>
+      <ul>
+        <li><b>Fracture</b>: Break in bone continuity when load exceeds bone strength (strength depends on mineralization + density + micro-architecture + direction of force).</li>
+      </ul>
+
+      <details>
+        <summary>Fracture patterns (click to expand)</summary>
+        <ul>
+          <li><b>Open (compound)</b>: Communicates with outside → higher infection risk.</li>
+          <li><b>Closed (simple)</b>: Skin intact.</li>
+          <li><b>Comminuted</b>: Multiple fragments (often high-energy trauma; harder stabilization).</li>
+          <li><b>Spiral</b>: Twisting force.</li>
+          <li><b>Transverse / Oblique</b>: Straight-across / angled break from bending/compression.</li>
+          <li><b>Compression</b>: Vertebral bodies commonly (often fragility-related).</li>
+          <li><b>Impacted</b>: Ends driven into each other.</li>
+          <li><b>Greenstick (kids)</b>: Incomplete bend/break (bone more flexible).</li>
+          <li><b>Stress fracture</b>: Microfractures from repetitive loading &gt; repair capacity (common tibia/metatarsals).</li>
+          <li><b>Pathologic fracture</b>: Minimal trauma due to underlying weakness (osteoporosis, tumor, infection, etc.).</li>
+        </ul>
+      </details>
+
+      <p class="note">Micro → macro idea: repeated microcracks + inadequate repair = stress fracture; low density/poor architecture = fragility fracture; altered matrix = pathologic fracture.</p>
+    </details>
+
+    <details>
+      <summary>F) Genetic/primary structural defects (built wrong from the start)</summary>
+      <ul>
+        <li><b>Osteogenesis imperfecta</b>: Inherited disorder (classically collagen-related) leading to brittle bone—matrix is structurally weak, so fractures occur with low trauma.</li>
+      </ul>
+    </details>
+
+    <details>
+      <summary>G) Tumor/Marrow-driven bone destruction</summary>
+      <ul>
+        <li><b>Osteosarcoma</b>: Malignant bone-forming tumor; causes local bone destruction and pain, may present with swelling/mass.</li>
+        <li><b>Multiple myeloma (bone involvement)</b>: Marrow plasma cell cancer causing lytic bone lesions via signaling that increases osteoclast activity → bone pain, fractures.</li>
+        <li><b>Bone metastasis</b>: Cancer spread to bone causing weakening (lytic) or abnormal hardening (blastic) depending on tumor type; increases fracture risk and pain.</li>
+      </ul>
+    </details>
+
+  </section>
+
+ 
+</div>
+
+<script>
+  function toggleAll(open) {
+    document.querySelectorAll('details').forEach(d => d.open = open);
+  }
+  function printAll(){
+    toggleAll(true);
+    // give the DOM a beat to expand before printing
+    setTimeout(() => window.print(), 50);
+  }
+</script>
+</body>
+</html>
+
